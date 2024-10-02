@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bash
+set -e
+
+PIGPIO_ARGS="${PIGPIO_ARGS:- -g}";
+
+exec \
+    pigpiod \
+    -p ${PIGPIO_PORT:-8888} \
+    ${PIGPIO_ARGS} \
+    ;
