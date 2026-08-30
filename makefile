@@ -22,6 +22,7 @@ IMAGETAG  ?= $(REGISTRY)/$(ORGNAME)/$(REPONAME):$(ARCH)
 CNTNAME   := docker_$(SVCNAME)
 CNTSHELL  := /bin/bash
 
+NPROC     := $(shell echo $$(($$(nproc)-2)))
 VERSION   ?= $(call get_gh_version,joan2937/pigpio)
 
 TESTCMD   := \
@@ -64,6 +65,7 @@ BUILDFLAGS ?= \
 	$(CACHEFLAGS) \
 	$(LABELFLAGS) \
 	--build-arg IMAGEBASE=$(IMAGEBASE) \
+	--build-arg NPROC=$(NPROC) \
 	--build-arg VERSION=$(if $(VERSION),$(VERSION),$(error VERSION is not defined)) \
 	--build-arg http_proxy=$(http_proxy) \
 	--build-arg https_proxy=$(https_proxy) \
